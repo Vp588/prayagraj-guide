@@ -1,0 +1,508 @@
+Here is the complete code for `public/index.html`.
+
+Copy this code and save it as **`public/index.html`**.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Prayagraj | City of Sangam</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS Variables & Reset --- */
+        :root {
+            --primary-color: #D35400; 
+            --secondary-color: #2980B9; 
+            --accent-color: #F39C12;
+            --text-dark: #2C3E50;
+            --text-light: #596275;
+            --bg-light: #FDFBF7;
+            --bg-white: #FFFFFF;
+            --bg-admin: #ecf0f1;
+            --font-heading: 'Merriweather', serif;
+            --font-body: 'Poppins', sans-serif;
+            --transition: all 0.3s ease;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); color: var(--text-dark); background-color: var(--bg-light); line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- Utilities --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .section-padding { padding: 80px 0; }
+        .text-center { text-align: center; }
+        .hidden { display: none !important; }
+        
+        .btn { display: inline-block; padding: 12px 30px; border-radius: 50px; font-weight: 500; transition: var(--transition); cursor: pointer; border: none; font-size: 0.9rem; }
+        .btn-primary { background-color: var(--primary-color); color: white; }
+        .btn-primary:hover { background-color: #ba4a00; transform: translateY(-2px); }
+        .btn-secondary { background-color: var(--secondary-color); color: white; }
+        .btn-secondary:hover { background-color: #1f618d; }
+        .btn-outline { border: 2px solid white; color: white; background: transparent; }
+        .btn-outline:hover { background: white; color: var(--primary-color); }
+        .btn-danger { background-color: #e74c3c; color: white; }
+        .btn-danger:hover { background-color: #c0392b; }
+
+        /* --- Header --- */
+        header { background-color: rgba(255, 255, 255, 0.95); position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        nav { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+        .logo { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--primary-color); display: flex; align-items: center; gap: 10px; }
+        .logo span { color: var(--text-dark); }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { font-weight: 500; font-size: 0.95rem; color: var(--text-dark); position: relative; }
+        .nav-links a:hover { color: var(--primary-color); }
+        .mobile-menu-btn { display: none; font-size: 1.5rem; cursor: pointer; }
+
+        /* --- Hero --- */
+        .hero { height: 100vh; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://picsum.photos/seed/prayagraj_sangam/1920/1080.jpg'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding-top: 80px; }
+        .hero-content h1 { font-family: var(--font-heading); font-size: 3.5rem; margin-bottom: 20px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .hero-content p { font-size: 1.2rem; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; opacity: 0.9; }
+        .hero-buttons { display: flex; gap: 15px; justify-content: center; }
+
+        /* --- Sections General --- */
+        .section-title { font-family: var(--font-heading); font-size: 2.5rem; color: var(--text-dark); margin-bottom: 15px; position: relative; display: inline-block; }
+        .section-title::before { content: ''; position: absolute; width: 60px; height: 3px; background-color: var(--primary-color); bottom: -10px; left: 50%; transform: translateX(-50%); }
+        .section-subtitle { color: var(--primary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 10px; display: block; }
+
+        /* --- Attractions --- */
+        .attractions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; }
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: var(--transition); display: flex; flex-direction: column; }
+        .card:hover { transform: translateY(-10px); }
+        .card-img-wrapper { height: 220px; overflow: hidden; position: relative; }
+        .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        .card-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-title { font-family: var(--font-heading); font-size: 1.3rem; margin: 10px 0; color: var(--text-dark); }
+        .card-desc { font-size: 0.95rem; color: var(--text-light); margin-bottom: 20px; flex-grow: 1; }
+
+        /* --- BLOG SECTION --- */
+        #blog-section { background-color: var(--bg-white); }
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 40px; }
+        .blog-card { background: white; border: 1px solid #eee; border-radius: 8px; overflow: hidden; transition: var(--transition); }
+        .blog-card:hover { box-shadow: var(--shadow); border-color: transparent; }
+        .blog-img { height: 200px; width: 100%; object-fit: cover; }
+        .blog-content { padding: 20px; }
+        .blog-meta { font-size: 0.8rem; color: var(--text-light); margin-bottom: 10px; display: flex; justify-content: space-between; }
+        .blog-meta i { color: var(--primary-color); margin-right: 5px; }
+        .blog-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: var(--text-dark); }
+        .blog-excerpt { font-size: 0.9rem; color: var(--text-light); margin-bottom: 15px; }
+
+        /* --- ADMIN DASHBOARD --- */
+        #admin-panel { background-color: var(--bg-admin); padding: 40px 0; border-top: 4px solid var(--primary-color); }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .admin-form-container { background: white; padding: 30px; border-radius: 10px; box-shadow: var(--shadow); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; }
+        .form-control { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 0.95rem; }
+        .form-control:focus { outline: none; border-color: var(--primary-color); }
+        textarea.form-control { resize: vertical; min-height: 120px; }
+
+        /* --- LOGIN MODAL --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: var(--transition); }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-box { background: white; width: 100%; max-width: 400px; padding: 40px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative; transform: translateY(-20px); transition: var(--transition); }
+        .modal-overlay.active .modal-box { transform: translateY(0); }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #999; }
+        .modal-title { text-align: center; font-family: var(--font-heading); margin-bottom: 25px; }
+
+        /* --- Footer --- */
+        footer { background-color: #1a252f; color: #bdc3c7; padding: 60px 0 20px; margin-top: auto; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-col h4 { color: white; margin-bottom: 20px; }
+        .footer-links a { display: block; margin-bottom: 10px; transition: 0.3s; }
+        .footer-links a:hover { color: var(--primary-color); padding-left: 5px; }
+        .social-icons { display: flex; gap: 15px; margin-top: 15px; }
+        .social-icons a { width: 35px; height: 35px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: 0.3s; }
+        .social-icons a:hover { background: var(--primary-color); color: white; }
+        .footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; font-size: 0.85rem; }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.2rem; }
+            .nav-links { display: none; } 
+            .mobile-menu-btn { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <i class="fas fa-om"></i>
+                    Prayagraj<span>Guide</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#blog-section">Blog</a></li>
+                    <li><a href="#attractions">Attractions</a></li>
+                    <li id="login-link"><a href="#" onclick="openLoginModal()" class="btn btn-outline" style="border: 2px solid var(--primary-color); color: var(--primary-color); padding: 8px 20px;">Admin Login</a></li>
+                    <li id="logout-link" class="hidden"><a href="#" onclick="logout()" class="btn btn-danger" style="padding: 8px 20px;">Logout</a></li>
+                </ul>
+                <div class="mobile-menu-btn" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section (Home) -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <h1>The Sangam City</h1>
+            <p>Experience the spiritual confluence of faith, history, and the holy rivers Ganga, Yamuna, and Saraswati.</p>
+            <div class="hero-buttons">
+                <a href="#blog-section" class="btn btn-primary">Read Latest Blogs</a>
+                <a href="#attractions" class="btn btn-outline">Explore Attractions</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOG SECTION -->
+    <section id="blog-section" class="section-padding">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-subtitle">Latest Updates</span>
+                <h2 class="section-title">Travel Blog</h2>
+                <p style="color: var(--text-light); max-width: 600px; margin: 0 auto;">Stories from travelers, guides to the Kumbh Mela, and tips for exploring the city.</p>
+            </div>
+
+            <div class="blog-grid" id="blog-container">
+                <!-- Posts will be loaded here by JavaScript -->
+                <p style="text-align:center; width:100%;">Loading blogs...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Attractions Section -->
+    <section id="attractions" class="section-padding">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-subtitle">Must Visit</span>
+                <h2 class="section-title">Top Attractions</h2>
+            </div>
+
+            <div class="attractions-grid">
+                <article class="card">
+                    <div class="card-img-wrapper">
+                        <img src="https://picsum.photos/seed/sangam_river/400/300.jpg" alt="Triveni Sangam">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-tag" style="color:var(--primary-color); font-weight:600; text-transform:uppercase; font-size:0.8rem;">Spiritual</span>
+                        <h3 class="card-title">Triveni Sangam</h3>
+                        <p class="card-desc">The holiest confluence of Ganga, Yamuna, and the mythical Saraswati. A boat ride here is ethereal.</p>
+                        <a href="#" class="btn btn-secondary" style="border-radius: 4px; padding: 8px 15px; font-size: 0.8rem;">View Details</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-img-wrapper">
+                        <img src="https://picsum.photos/seed/allahabad_fort/400/300.jpg" alt="Allahabad Fort">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-tag" style="color:var(--primary-color); font-weight:600; text-transform:uppercase; font-size:0.8rem;">Historical</span>
+                        <h3 class="card-title">Allahabad Fort</h3>
+                        <p class="card-desc">Built by Emperor Akbar in 1583, this majestic fort stands near the Sangam.</p>
+                        <a href="#" class="btn btn-secondary" style="border-radius: 4px; padding: 8px 15px; font-size: 0.8rem;">View Details</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-img-wrapper">
+                        <img src="https://picsum.photos/seed/anand_bhavan/400/300.jpg" alt="Anand Bhavan">
+                    </div>
+                    <div class="card-body">
+                        <span class="card-tag" style="color:var(--primary-color); font-weight:600; text-transform:uppercase; font-size:0.8rem;">Museum</span>
+                        <h3 class="card-title">Anand Bhavan</h3>
+                        <p class="card-desc">Ancestral home of the Nehru family, now a museum showcasing India's independence struggle.</p>
+                        <a href="#" class="btn btn-secondary" style="border-radius: 4px; padding: 8px 15px; font-size: 0.8rem;">View Details</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ADMIN PANEL (Hidden by default) -->
+    <section id="admin-panel" class="hidden">
+        <div class="container">
+            <div class="admin-header">
+                <div>
+                    <h2 style="font-family: var(--font-heading);"><i class="fas fa-user-shield"></i> Admin Dashboard</h2>
+                    <p>Create and manage blog posts for the Prayagraj Guide.</p>
+                </div>
+                <button onclick="logout()" class="btn btn-danger">Logout</button>
+            </div>
+
+            <div class="admin-form-container">
+                <h3 style="margin-bottom: 20px;">Create New Post</h3>
+                <form id="blog-form" onsubmit="addBlogPost(event)">
+                    <div class="form-group">
+                        <label for="post-title">Post Title</label>
+                        <input type="text" id="post-title" class="form-control" placeholder="e.g., Visiting Allahabad Fort" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="post-category">Category</label>
+                        <select id="post-category" class="form-control">
+                            <option value="Travel">Travel</option>
+                            <option value="Spiritual">Spiritual</option>
+                            <option value="Food">Food</option>
+                            <option value="Heritage">Heritage</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="post-image">Image URL (Optional)</label>
+                        <input type="text" id="post-image" class="form-control" placeholder="https://example.com/image.jpg">
+                        <small style="color: #777;">Leave empty to generate a random image.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="post-content">Content Excerpt</label>
+                        <textarea id="post-content" class="form-control" placeholder="Write a short summary of your post..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Publish Post</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo">
+                        <i class="fas fa-om"></i>
+                        Prayagraj<span>Guide</span>
+                    </div>
+                    <p style="margin-top: 15px;">Your guide to the spiritual capital of India.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#blog-section">Blog</a></li>
+                        <li><a href="#attractions">Attractions</a></li>
+                        <li><a href="#" onclick="openLoginModal()">Admin Login</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li>Civil Lines, Prayagraj</li>
+                        <li>+91 7906282610</li>
+                        <li>dd.vijayprakash.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Prayagraj Tourism. Local Development Mode.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LOGIN MODAL -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-box">
+            <span class="close-modal" onclick="closeLoginModal()">&times;</span>
+            <h3 class="modal-title">Admin Login</h3>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="admin" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="prayagraj" required>
+                </div>
+                <div id="login-error" style="color: red; font-size: 0.9rem; margin-bottom: 10px; display: none;">Invalid credentials!</div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Login to Dashboard</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SCRIPTS: Connect to Backend -->
+    <script>
+        // --- API Configuration ---
+        // Since this is served by the same server, we use relative paths
+        const API_URL = '/api';
+
+        // --- On Page Load ---
+        document.addEventListener('DOMContentLoaded', async () => {
+            loadBlogs();
+            checkSession();
+        });
+
+        // 1. Load Blogs from API
+        async function loadBlogs() {
+            try {
+                const response = await fetch(`${API_URL}/blogs`);
+                const blogs = await response.json();
+                
+                const grid = document.getElementById('blog-container');
+                grid.innerHTML = ''; // Clear loading text
+
+                if (blogs.length === 0) {
+                    grid.innerHTML = '<p style="text-align:center; width:100%;">No blog posts yet. Login to create one!</p>';
+                    return;
+                }
+
+                blogs.forEach(post => {
+                    const article = document.createElement('article');
+                    article.className = 'blog-card';
+                    article.innerHTML = `
+                        <img src="${post.imageUrl}" alt="${post.title}" class="blog-img">
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> ${new Date(post.date).toLocaleDateString()}</span>
+                                <span><i class="fas fa-tag"></i> ${post.category}</span>
+                            </div>
+                            <h3 class="blog-title">${post.title}</h3>
+                            <p class="blog-excerpt">${post.content}</p>
+                        </div>
+                    `;
+                    grid.appendChild(article);
+                });
+            } catch (error) {
+                console.error("Error loading blogs:", error);
+                document.getElementById('blog-container').innerHTML = '<p style="color:red; text-align:center;">Error loading blogs. Is the server running?</p>';
+            }
+        }
+
+        // 2. Handle Login
+        async function handleLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+
+            try {
+                const response = await fetch(`${API_URL}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: user, password: pass })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    closeLoginModal();
+                    showAdminPanelUI();
+                } else {
+                    document.getElementById('login-error').innerText = data.message;
+                    document.getElementById('login-error').style.display = 'block';
+                }
+            } catch (error) {
+                console.error("Login error", error);
+                // Fallback if no login route exists in simplified server
+                if(user === 'admin' && pass === 'prayagraj') {
+                    alert("Logged in (Mock Mode - No Server Connection)");
+                    localStorage.setItem('token', 'mock_token');
+                    closeLoginModal();
+                    showAdminPanelUI();
+                } else {
+                    alert("Login failed. Is the server running?");
+                }
+            }
+        }
+
+        // 3. Check if already logged in
+        function checkSession() {
+            const token = localStorage.getItem('token');
+            if (token) {
+                showAdminPanelUI();
+            }
+        }
+
+        function showAdminPanelUI() {
+            document.getElementById('login-link').classList.add('hidden');
+            document.getElementById('logout-link').classList.remove('hidden');
+            document.getElementById('admin-panel').classList.remove('hidden');
+        }
+
+        // 4. Create Blog Post
+       // 4. Create Blog Post
+async function addBlogPost(e) {
+    e.preventDefault();
+    const token = localStorage.getItem('token');
+
+    if(!token) {
+        alert("You must be logged in!");
+        openLoginModal();
+        return;
+    }
+
+    const title = document.getElementById('post-title').value;
+    const category = document.getElementById('post-category').value;
+    let imageUrl = document.getElementById('post-image').value;
+    const content = document.getElementById('post-content').value;
+
+    if(!imageUrl) {
+        imageUrl = `https://picsum.photos/seed/${Math.floor(Math.random()*1000)}/400/250.jpg`;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/blogs`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ title, category, imageUrl, content })
+        });
+
+        // --- UPDATED ERROR HANDLING ---
+        if (response.ok) {
+            document.getElementById('blog-form').reset();
+            loadBlogs();
+            document.getElementById('blog-section').scrollIntoView({ behavior: 'smooth' });
+            alert("Post Published Successfully!");
+        } else {
+            const data = await response.json();
+            // This alert will now show the SPECIFIC error from the server
+            alert("Server Error: " + data.error);
+        }
+    } catch (error) {
+        console.error(error);
+        alert("Error connecting to server");
+    }
+}
+        // --- UI Helpers ---
+        function openLoginModal() { document.getElementById('loginModal').classList.add('active'); }
+        function closeLoginModal() { document.getElementById('loginModal').classList.remove('active'); }
+        function logout() { 
+            localStorage.removeItem('token'); 
+            location.reload(); 
+        }
+        function toggleMenu() { alert("Mobile menu toggle functionality."); }
+        
+        window.onclick = function(event) {
+            const modal = document.getElementById('loginModal');
+            if (event.target == modal) { closeLoginModal(); }
+        }
+    </script>
+</body>
+</html>
+```
